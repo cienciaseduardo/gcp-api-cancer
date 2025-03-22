@@ -1,4 +1,4 @@
-ttensorflow
+tensorflow
 pillow
 fastapi
 uvicorn
