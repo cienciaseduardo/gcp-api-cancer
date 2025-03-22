@@ -24,7 +24,15 @@ from models.images import ImageRequest
 from utils.imagenes import decode_base64_image, make_gradcam_heatmap, overlay_heatmap
 
 
+file_id = "1lZ4KvZYrHGOYapTSEFQ4GjMPmq7UNA3I"
+output = "best_model_inception_iter1_20250319_164436.h5"
+url = f"https://drive.google.com/uc?id={file_id}"
 
+if not os.path.exists(output):
+    print("Descargando modelo...")
+    gdown.download(url, output, quiet=False)
+    # Inicializa el clasificador
+    classifier = CancerClassifier("best_model_inception_iter1_20250319_164436.h5")
 
 # Inicializa API
 app = FastAPI()
@@ -39,17 +47,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.on_event("startup")
-async def startup_event():
-    file_id = "1lZ4KvZYrHGOYapTSEFQ4GjMPmq7UNA3I"
-    output = "best_model_inception_iter1_20250319_164436.h5"
-    url = f"https://drive.google.com/uc?id={file_id}"
 
-    if not os.path.exists(output):
-        print("Descargando modelo...")
-        gdown.download(url, output, quiet=False)
-        # Inicializa el clasificador
-        classifier = CancerClassifier("best_model_inception_iter1_20250319_164436.h5")
 
 # ===============================
 # Endpoint para recibir la imagen y devolver el resultado
