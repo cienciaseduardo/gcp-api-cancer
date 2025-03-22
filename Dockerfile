@@ -7,4 +7,4 @@ COPY ./app /app
 # Instala los paquetes necesarios especificados en requirements.txt
 RUN pip install -r requirements.txt
 # Ejecuta main.py cuando se inicie el contenedor
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "80"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
